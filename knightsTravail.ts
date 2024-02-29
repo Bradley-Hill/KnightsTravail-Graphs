@@ -5,6 +5,17 @@ interface Chessboard {
   getSize: () => number;
 }
 
+interface Knight {
+  getKnight: () => number[];
+  setKnight: (newPosition: number[]) => void;
+  calculateMoves: () => number[][];
+  findShortestPath: (
+    currentPosition: number[],
+    targetPosition: number[]
+  ) => number[][];
+}
+
+//Generates a chessboard 2D array with zeros at each co-odinate
 function createChessboard(size) {
   const chessboard = Array(size)
     .fill(0)
@@ -16,6 +27,7 @@ function createChessboard(size) {
   };
 }
 
+//Takes the chessboard objet and a starting co-ordinate to generate a Knight object
 function createKnight(chessboard, startingPosition) {
   const currentPosition = startingPosition;
 
@@ -30,7 +42,8 @@ function createKnight(chessboard, startingPosition) {
     [-1, -2],
   ];
 
-  const calculateMoves = () => {
+  //Uses knight Moveset and generates an array of valid moves based on current co-ordinates
+  const calculateMoves = (currentPosition: number[]) => {
     const size = chessboard.getSize();
     let validMoves: number[][] = [];
     possibleMoves.forEach((move) => {
@@ -50,6 +63,24 @@ function createKnight(chessboard, startingPosition) {
     return validMoves;
   };
 
+  const findShortestPath = (
+    startingPosition: number[],
+    targetPosition: number[]
+  ) => {
+    const previousPosition = [];
+    //push() and shift() to create queue behaviour with this array
+    const queue = [startingPosition];
+    while (queue.length > 0) {
+      const currentPosition = queue.shift();
+      if (currentPosition) {
+        const possibleMoves = calculateMoves(currentPosition);
+        for (const move of possibleMoves) {
+          queue.push(move);
+        }
+      }
+    }
+  };
+
   return {
     getKnight: () => currentPosition,
     setKnight: (newPosition) => {
@@ -57,6 +88,7 @@ function createKnight(chessboard, startingPosition) {
       currentPosition[1] = newPosition[1];
     },
     calculateMoves,
+    findShortestPath,
   };
 }
 
