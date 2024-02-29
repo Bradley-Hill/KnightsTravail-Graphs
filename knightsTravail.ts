@@ -124,7 +124,10 @@ function createKnight(
   };
 }
 
+//testing the findShortestPath functions correctly
 let board = createChessboard(8);
-let knight = createKnight(board, [4, 4]);
-let path = knight.findShortestPath([4, 4], [2, 6]);
-console.log(path);
+let knight = createKnight(board, [0, 0]);
+console.log(knight.findShortestPath([0, 0], [7, 7])); //returns an array with 7 entries(including start position)
+console.log(knight.findShortestPath([0, 0], [0, 7])); //returns an array with 5 entries(including start position)
+console.log(knight.findShortestPath([0, 0], [7, 0])); //returns an array with 5 entries(including start position)
+console.log(knight.findShortestPath([0, 0], [0, 0])); //returns an array with 1 entry(the start position)
