@@ -26,14 +26,6 @@ let knight = createKnight(board, [0, 0]);
 console.log(knight.findShortestPath([0, 0], [7, 7])); //returns an array with 7 entries(including start position)
 ```
 
-## Testing
-
-To run the tests, use the following command:
-
-```sh
-npm test
-```
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
